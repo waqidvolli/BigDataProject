@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <!-- <script src="Chart.js"></script> -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/iThing-min.css" type="text/css" />
+    <script src="data/nta.json"></script>
+    <script src="data/data.json"></script>
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jQDateRangeSlider-min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+    <div id="monthSlider"></div>
+
+    <div id="parent" style="height: 200px;">
+        <div id="child1" style="height: 100%;width: 49%;float: left;">
+            <div id="map"></div>
+        </div>
+        <div id="child2" style="  height: 200px; width:49%;float: right;">
+           <div style="float:right">
+            <select class="selectpicker">
+              <option>All Permits</option>
+              <option>Retail Food Process</option>
+              <option>Physician</option>
+              <option>Mobile Food Unit</option>
+              <option>Plumbing</option>
+              <option>Full Term MFV Permit</option>
+              <option>Foundation</option>
+              <option>Alteration</option>
+              <option>Equipment Work</option>
+              <option>Sign</option>
+              <option>Equipment</option>
+              <option>New Building</option>
+              <option>Food Service Est.</option>
+              <option>Seasonal MFV Permit</option>
+              <option>Childcare Application Permit</option>
+            </select>
+            </div>
+            <div id="chart"></div>
+        </div>
+    </div>
+
+
+    <script src="js/master.js"></script>
+
+</body>
+
+</html>
