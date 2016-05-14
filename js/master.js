@@ -171,12 +171,12 @@ function updateChart() {
             nyu_dpu[i - 1] = Math.round(NYU_obj.dollar_per_unit);
             nyu_taxitrips[i - 1] = Math.round(NYU_obj.dropoff + NYU_obj.pickup);
             if (permit == "all") {
-                nyu_permits[i - 1] = Math.round(NYU_obj["retail_food_process"] + NYU_obj["physician"] + NYU_obj["mobile_food_unit"] + NYU_obj["plumbing"] +
+                nyu_permits[i - 1] = parseFloat((NYU_obj["retail_food_process"] + NYU_obj["physician"] + NYU_obj["mobile_food_unit"] + NYU_obj["plumbing"] +
                     NYU_obj["full_term_mfv_permit"] + NYU_obj["foundation"] + NYU_obj["alteration"] + NYU_obj["equipment_work"] + NYU_obj["sign"] +
                     NYU_obj["equipment"] + NYU_obj["new_building"] + NYU_obj["food_service_est"] + NYU_obj["seasonal_mfv_permit"] +
-                    NYU_obj["child_care_application_tracking_system"]);
+                    NYU_obj["child_care_application_tracking_system"]).toFixed(2));
             } else {
-                nyu_permits[i - 1] = Math.round(NYU_obj[permit]);
+                nyu_permits[i - 1] = parseFloat((NYU_obj[permit]).toFixed(2));
             }
 
 
