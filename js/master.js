@@ -139,7 +139,7 @@ function updateChart() {
         var _mm = mm + (i - 1);
         _mm = _mm > 12 ? _mm % 12 : _mm;
         _mm = _mm < 10 ? "0" + _mm : _mm;
-        // console.log(yyyy + "-" + _mm)
+        console.log(yyyy + "-" + _mm)
         var obj = merged_data[ntaCode][yyyy + "-" + _mm];
         //console.log(obj)
         if (obj) {
@@ -185,10 +185,18 @@ function updateChart() {
         }
     }
 
+    // console.log(mm)
+    var mm1 = mm-1>=12?(mm-1)%12:mm-1;
+    var mm2 = mm>=12?mm%12:mm;
+    var mm3 = mm+1>=12?(mm+1)%12:mm+1;
+    var mm4 = mm+2>=12?(mm+2)%12:mm+2;
+    var mm5 = mm+3>=12?(mm+3)%12:mm+3;
+    var mm6 = mm+4>=12?(mm+4)%12:mm+4;
+
 
     //UPDATE X-AXIS MONTH
-    chart.xAxis[0].setCategories([month_arr[mm - 1], month_arr[mm], month_arr[mm + 1],
-        month_arr[mm + 2], month_arr[mm + 3], month_arr[mm + 4]
+    chart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
+        month_arr[mm4], month_arr[mm5], month_arr[mm6]
     ], true);
     chart.series[0].update({
         data: [permits[0], permits[1], permits[2], permits[3], permits[4], permits[5]]
@@ -202,8 +210,8 @@ function updateChart() {
 
 
     //UPDATE Dollar per unit chart
-    dpuChart.xAxis[0].setCategories([month_arr[mm - 1], month_arr[mm], month_arr[mm + 1],
-        month_arr[mm + 2], month_arr[mm + 3], month_arr[mm + 4]
+    dpuChart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
+        month_arr[mm4], month_arr[mm5], month_arr[mm6]
     ], true);
     dpuChart.series[0].update({
         data: [dpu[0], dpu[1], dpu[2], dpu[3], dpu[4], dpu[5]]
@@ -215,8 +223,8 @@ function updateChart() {
 
 
     //UPDATE taxi chart
-    taxiChart.xAxis[0].setCategories([month_arr[mm - 1], month_arr[mm], month_arr[mm + 1],
-        month_arr[mm + 2], month_arr[mm + 3], month_arr[mm + 4]
+    taxiChart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
+        month_arr[mm4], month_arr[mm5], month_arr[mm6]
     ], true);
     taxiChart.series[0].update({
         data: [taxitrips[0], taxitrips[1], taxitrips[2], taxitrips[3], taxitrips[4], taxitrips[5]]
@@ -227,8 +235,8 @@ function updateChart() {
 
 
     //UPDATE permit chart
-    permitChart.xAxis[0].setCategories([month_arr[mm - 1], month_arr[mm], month_arr[mm + 1],
-        month_arr[mm + 2], month_arr[mm + 3], month_arr[mm + 4]
+    permitChart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
+        month_arr[mm4], month_arr[mm5], month_arr[mm6]
     ], true);
     permitChart.series[0].update({
         data: [permits[0], permits[1], permits[2], permits[3], permits[4], permits[5]]
