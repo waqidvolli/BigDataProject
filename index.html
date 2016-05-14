@@ -19,36 +19,49 @@
 </head>
 
 <body>
-    <div id="monthSlider"></div>
 
-    <div id="parent" style="height: 200px;">
-        <div id="child1" style="height: 100%;width: 49%;float: left;">
-            <div id="map"></div>
+
+    <div id="parent">
+        <div id="child1" style="width: 49%;float: left;">
+            <div id="map" style="height: 300px;"></div>
         </div>
-        <div id="child2" style="  height: 200px; width:49%;float: right;">
+        <div id="child2" style="width:49%;float: right;">
            <div style="float:right">
-            <select class="selectpicker">
-              <option>All Permits</option>
-              <option>Retail Food Process</option>
-              <option>Physician</option>
-              <option>Mobile Food Unit</option>
-              <option>Plumbing</option>
-              <option>Full Term MFV Permit</option>
-              <option>Foundation</option>
-              <option>Alteration</option>
-              <option>Equipment Work</option>
-              <option>Sign</option>
-              <option>Equipment</option>
-              <option>New Building</option>
-              <option>Food Service Est.</option>
-              <option>Seasonal MFV Permit</option>
-              <option>Childcare Application Permit</option>
+            <select id="selectpermit" class="selectpicker">
+              <option value="all">All Permits</option>
+              <option value="retail_food_process">Retail Food Process</option>
+              <option value="physician">Physician</option>
+              <option value="mobile_food_unit">Mobile Food Unit</option>
+              <option value="plumbing">Plumbing</option>
+              <option value="full_term_mfv_permit">Full Term MFV Permit</option>
+              <option value="foundation">Foundation</option>
+              <option value="alteration">Alteration</option>
+              <option value="equipment_work">Equipment Work</option>
+              <option value="sign">Sign</option>
+              <option value="equipment">Equipment</option>
+              <option value="new_building">New Building</option>
+              <option value="food_service_est">Food Service Est.</option>
+              <option value="seasonal_mfv_permit">Seasonal MFV Permit</option>
+              <option value="child_care_application_tracking_system">Childcare Application Permit</option>
             </select>
             </div>
-            <div id="chart"></div>
+            <div id="chart" style="height: 300px;"></div>
         </div>
     </div>
 
+    <div id="parent2" >
+         <div id="child3" style="margin-top:5px; width: 32%;float: left;">
+            <div id="taxiChart" style="height: 300px;"></div>
+        </div>
+        <div id="child4" style="margin-top:5px; width: 32%;float: left;">
+            <div id="dpuChart" style="height: 300px;"></div>
+        </div>
+        <div id="child5" style="margin-top:5px; width: 32%;float: left;">
+            <div id="permitChart" style="height: 300px;"></div>
+        </div>
+    </div>
+
+    <div id="monthSlider" style="margin-left:3%;margin-right:3%;  width:94%;bottom: 0px;position: absolute;"></div>
 
     <script src="js/master.js"></script>
 
