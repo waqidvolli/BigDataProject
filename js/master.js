@@ -44,66 +44,14 @@ $("#monthSlider").bind("valuesChanging", function(e, data) {
     updateChart();
 });
 
-
-
-var nta_geojson = null;
-
-function getNTAGeoJSON() {
-    $.getJSON("data/nta.json", function(geojson) {
-        nta_geojson = geojson[0];
-        getMergedData();
-    });
-}
-
 var merged_data = null;
 
 function getMergedData() {
     $.getJSON("data/data.json", function(data) {
         merged_data = data[0];
-        renderMap();
+        updateChart();
     });
 }
-// Initiate the chart
-function renderMap() {
-    var d = [];
-    for (var ntacode in merged_data) {
-        for (var month in merged_data[ntacode]) {
-            if (month == "2012-01") {
-                var item = {
-                    "code": ntacode,
-                    "value": merged_data[ntacode][month]["taxi_dropoff_count"]
-                };
-                d.push(item);
-            }
-        }
-    }
-
-    $('#map').slideDown().highcharts('Map', {
-        series: [{
-            mapData: nta_geojson,
-            data: d,
-            joinBy: ['NTACode', 'code']
-        }],
-        plotOptions: {
-            series: {
-                cursor: 'pointer',
-                point: {
-                    events: {
-                        click: function(e) {
-                            console.log(e.point.NTACode);
-                            config.selected_ntaCode = e.point.NTACode;
-                            updateChart();
-                        }
-                    }
-                }
-            }
-        },
-    });
-
-    updateChart();
-}
-
-
 
 
 function updateChart() {
@@ -569,4 +517,4 @@ $('#permitChart').highcharts({
 });
 
 /* INITIALIZE the dashboard */
-getNTAGeoJSON();
+getMergedData();
