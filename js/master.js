@@ -1,10 +1,8 @@
 var config = {
     selected_ntaCode: "BX08",
-    selected_yearMonth: "2012-01",
-    selected_permit: "all"
+    selected_permit: "all",
+    selected_date: moment("2011-01-01")
 }
-
-var month_arr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 
 $('#selectpermit').on('change', function() {
@@ -35,10 +33,8 @@ $("#monthSlider").dateRangeSlider({
     },
 
     formatter: function(val) {
-        var days = val.getDate(),
-            month = val.getMonth(),
-            year = val.getFullYear();
-        return month_arr[month] + " " + year;
+        var display =  moment(val).format('MMM YYYY');   
+        return display;
     }
 
 });
@@ -47,6 +43,7 @@ $("#monthSlider").bind("valuesChanging", function(e, data) {
     current_month = moment(data.values.min).month();
     current_year = moment(data.values.min).year();
     config.selected_yearMonth = moment(data.values.min).format("YYYY-MM");
+    config.selected_date = data.values.min;
     updateChart();
 });
 
@@ -116,9 +113,6 @@ function updateChart() {
     var permit = config.selected_permit;
     var ntaCode = config.selected_ntaCode;
 
-    var mm = parseInt(config.selected_yearMonth.substr(5, 7));
-    var yyyy = config.selected_yearMonth.substr(0, 4)
-
     var chart = $('#chart').highcharts();
     var taxiChart = $('#taxiChart').highcharts();
     var dpuChart = $('#dpuChart').highcharts();
@@ -134,24 +128,24 @@ function updateChart() {
     var nyu_taxitrips = [null, null, null, null, null, null];
     var title = "Data not avaliable";
 
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 0; i < 6; i++) {
         //NTA data
-        var _mm = mm + (i - 1);
-        _mm = _mm > 12 ? _mm % 12 : _mm;
-        _mm = _mm < 10 ? "0" + _mm : _mm;
-        console.log(yyyy + "-" + _mm)
-        var obj = merged_data[ntaCode][yyyy + "-" + _mm];
+        var period = moment(config.selected_date).add(i,'M');
+        var mm = period.format('MM');
+        var yyyy = period.format('YYYY');
+        // console.log(yyyy + "-" + mm);
+        var obj = merged_data[ntaCode][yyyy + "-" + mm];
         //console.log(obj)
         if (obj) {
-            dpu[i - 1] = Math.round(obj.dollar_per_unit);
-            taxitrips[i - 1] = Math.round(obj.dropoff + obj.pickup);
+            dpu[i] = Math.round(obj.dollar_per_unit);
+            taxitrips[i] = Math.round(obj.dropoff + obj.pickup);
             if (permit == "all") {
-                permits[i - 1] = Math.round(obj["retail_food_process"] + obj["physician"] + obj["mobile_food_unit"] + obj["plumbing"] +
+                permits[i] = Math.round(obj["retail_food_process"] + obj["physician"] + obj["mobile_food_unit"] + obj["plumbing"] +
                     obj["full_term_mfv_permit"] + obj["foundation"] + obj["alteration"] + obj["equipment_work"] + obj["sign"] +
                     obj["equipment"] + obj["new_building"] + obj["food_service_est"] + obj["seasonal_mfv_permit"] +
                     obj["child_care_application_tracking_system"]);
             } else {
-                permits[i - 1] = Math.round(obj[permit]);
+                permits[i] = Math.round(obj[permit]);
             }
             chart.setTitle({
                 text: obj.nta_string
@@ -165,18 +159,18 @@ function updateChart() {
 
 
         // NYC data
-        var NYU_obj = merged_data["NYC_avg"][yyyy + "-" + _mm];
+        var NYU_obj = merged_data["NYC_avg"][yyyy + "-" + mm];
 
         if (NYU_obj) {
-            nyu_dpu[i - 1] = Math.round(NYU_obj.dollar_per_unit);
-            nyu_taxitrips[i - 1] = Math.round(NYU_obj.dropoff + NYU_obj.pickup);
+            nyu_dpu[i] = Math.round(NYU_obj.dollar_per_unit);
+            nyu_taxitrips[i] = Math.round(NYU_obj.dropoff + NYU_obj.pickup);
             if (permit == "all") {
-                nyu_permits[i - 1] = parseFloat((NYU_obj["retail_food_process"] + NYU_obj["physician"] + NYU_obj["mobile_food_unit"] + NYU_obj["plumbing"] +
+                nyu_permits[i] = parseFloat((NYU_obj["retail_food_process"] + NYU_obj["physician"] + NYU_obj["mobile_food_unit"] + NYU_obj["plumbing"] +
                     NYU_obj["full_term_mfv_permit"] + NYU_obj["foundation"] + NYU_obj["alteration"] + NYU_obj["equipment_work"] + NYU_obj["sign"] +
                     NYU_obj["equipment"] + NYU_obj["new_building"] + NYU_obj["food_service_est"] + NYU_obj["seasonal_mfv_permit"] +
                     NYU_obj["child_care_application_tracking_system"]).toFixed(2));
             } else {
-                nyu_permits[i - 1] = parseFloat((NYU_obj[permit]).toFixed(2));
+                nyu_permits[i] = parseFloat((NYU_obj[permit]).toFixed(2));
             }
 
 
@@ -185,19 +179,17 @@ function updateChart() {
         }
     }
 
-    // console.log(mm)
-    var mm1 = mm-1>=12?(mm-1)%12:mm-1;
-    var mm2 = mm>=12?mm%12:mm;
-    var mm3 = mm+1>=12?(mm+1)%12:mm+1;
-    var mm4 = mm+2>=12?(mm+2)%12:mm+2;
-    var mm5 = mm+3>=12?(mm+3)%12:mm+3;
-    var mm6 = mm+4>=12?(mm+4)%12:mm+4;
+
+    var mm1 = moment(config.selected_date).format('MMM YY');
+    var mm2 = moment(config.selected_date).add(1,'M').format('MMM YY');
+    var mm3 = moment(config.selected_date).add(2,'M').format('MMM YY');
+    var mm4 = moment(config.selected_date).add(3,'M').format('MMM YY');
+    var mm5 = moment(config.selected_date).add(4,'M').format('MMM YY');
+    var mm6 = moment(config.selected_date).add(5,'M').format('MMM YY');
 
 
     //UPDATE X-AXIS MONTH
-    chart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
-        month_arr[mm4], month_arr[mm5], month_arr[mm6]
-    ], true);
+    chart.xAxis[0].setCategories([mm1,mm2,mm3,mm4,mm5,mm6], true);
     chart.series[0].update({
         data: [permits[0], permits[1], permits[2], permits[3], permits[4], permits[5]]
     });
@@ -210,9 +202,7 @@ function updateChart() {
 
 
     //UPDATE Dollar per unit chart
-    dpuChart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
-        month_arr[mm4], month_arr[mm5], month_arr[mm6]
-    ], true);
+    dpuChart.xAxis[0].setCategories([mm1,mm2,mm3,mm4,mm5,mm6], true);
     dpuChart.series[0].update({
         data: [dpu[0], dpu[1], dpu[2], dpu[3], dpu[4], dpu[5]]
     });
@@ -223,9 +213,7 @@ function updateChart() {
 
 
     //UPDATE taxi chart
-    taxiChart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
-        month_arr[mm4], month_arr[mm5], month_arr[mm6]
-    ], true);
+    taxiChart.xAxis[0].setCategories([mm1,mm2,mm3,mm4,mm5,mm6], true);
     taxiChart.series[0].update({
         data: [taxitrips[0], taxitrips[1], taxitrips[2], taxitrips[3], taxitrips[4], taxitrips[5]]
     });
@@ -235,9 +223,7 @@ function updateChart() {
 
 
     //UPDATE permit chart
-    permitChart.xAxis[0].setCategories([month_arr[mm1], month_arr[mm2], month_arr[mm3],
-        month_arr[mm4], month_arr[mm5], month_arr[mm6]
-    ], true);
+    permitChart.xAxis[0].setCategories([mm1,mm2,mm3,mm4,mm5,mm6], true);
     permitChart.series[0].update({
         data: [permits[0], permits[1], permits[2], permits[3], permits[4], permits[5]]
     });
@@ -503,6 +489,7 @@ $('#dpuChart').highcharts({
 
         color: Highcharts.getOptions().colors[4],
         tooltip: {
+            valueSuffix: ' $'
         }
 
     }, ]
