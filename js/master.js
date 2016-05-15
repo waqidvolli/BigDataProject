@@ -33,7 +33,7 @@ $("#monthSlider").dateRangeSlider({
     },
 
     formatter: function(val) {
-        var display =  moment(val).format('MMM YYYY');   
+        var display =  moment(val).format('MMM YYYY');
         return display;
     }
 
@@ -517,4 +517,21 @@ $('#permitChart').highcharts({
 });
 
 /* INITIALIZE the dashboard */
-getMergedData();
+$(function() {
+    getMergedData();
+
+    map.init(mapSrc);
+
+    $('#layer-selector').change(function () {
+        map.adjustLayersVisibility();
+    });
+
+    map.onClick(function(ntacode) {
+        config.selected_ntaCode = ntacode;
+        updateChart();
+    });
+
+    $("#monthSlider").bind("valuesChanged", function() {
+        map.updateTimeRange();
+    });
+});
