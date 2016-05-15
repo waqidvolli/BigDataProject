@@ -40,8 +40,6 @@ $("#monthSlider").dateRangeSlider({
 });
 
 $("#monthSlider").bind("valuesChanging", function(e, data) {
-    current_month = moment(data.values.min).month();
-    current_year = moment(data.values.min).year();
     config.selected_date = data.values.min;
     updateChart();
 });
