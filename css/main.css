@@ -16,7 +16,7 @@ h2 {
 }
 
 .chart {
-    height: 250px;
+    height: 230px;
 }
 
 .options-panel {
@@ -31,6 +31,20 @@ h2 {
 
 .form-control {
     font-size: 12px;
+}
+
+#map .cartodb-legend-stack {
+    left: 10px;
+    right: auto;
+    bottom: 60px;
+}
+
+#map .cartodb-zoom {
+    display: none;
+}
+
+#map .cartdb-tiles-loader {
+    right: 20px;
 }
 
 @media (min-width: 768px) {
