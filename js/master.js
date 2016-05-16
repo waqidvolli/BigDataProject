@@ -92,14 +92,10 @@ function updateChart() {
             } else {
                 permits[i] = Math.round(obj[permit]);
             }
-            chart.setTitle({
-                text: obj.nta_string
-            })
+            $('#chart-title').text(obj.nta_string);
 
         } else {
-            chart.setTitle({
-                text: title
-            })
+            $('#chart-title').text(obj.nta_string);
         }
 
 
@@ -178,6 +174,7 @@ function updateChart() {
 
 }
 
+Highcharts.setOptions(Highcharts.themes['pastel']);
 
 // CHART  - shows combination of Permits, DPU, Taxi trips
 $('#chart').highcharts({
@@ -185,7 +182,7 @@ $('#chart').highcharts({
         zoomType: 'xy'
     },
     title: {
-        text: 'Brooklyn'
+        text: null
     },
     subtitle: {
         // text: 'text'
@@ -300,7 +297,7 @@ $('#taxiChart').highcharts({
         zoomType: 'xy'
     },
     title: {
-        text: 'Taxi Trips'
+        text: null
     },
     subtitle: {
     },
@@ -372,7 +369,7 @@ $('#dpuChart').highcharts({
         zoomType: 'xy'
     },
     title: {
-        text: 'Sale Prices'
+        text: null,
     },
     subtitle: {
     },
@@ -449,7 +446,7 @@ $('#permitChart').highcharts({
         zoomType: 'xy'
     },
     title: {
-        text: 'Permits'
+        text: null
     },
     subtitle: {
     },
@@ -522,8 +519,10 @@ $(function() {
 
     map.init(mapSrc);
 
-    $('#layer-selector').change(function () {
-        map.adjustLayersVisibility();
+    $('[name=layer-selector]').each(function () {
+        $(this).on('change', function() {
+            map.adjustLayersVisibility();
+        });
     });
 
     map.onClick(function(ntacode) {

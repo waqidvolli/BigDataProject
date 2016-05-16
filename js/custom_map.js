@@ -7,9 +7,11 @@ var ntaLayerIndex = 3,
 
 var map = {
     properties: function() {
+        var layer = $('[name=layer-selector]:checked').val();
+
         return {
-            showPickups: $('#layer-selector').val() == pickupsLayerIndex,
-            showDropoffs: $('#layer-selector').val() == dropoffsLayerIndex,
+            showPickups: layer == pickupsLayerIndex,
+            showDropoffs: layer == dropoffsLayerIndex,
             timeRange: moment(config.selected_date).format('YYYY-MM-DD')
         }
     },

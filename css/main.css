@@ -1,0 +1,56 @@
+body, p {
+    font-family: 'Open Sans', sans-serif;
+    color: #404040;
+    font-size: 12px;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 22px;
+    line-height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.chart {
+    height: 250px;
+}
+
+.options-panel {
+    padding: 10px 0;
+}
+
+.options-panel select {
+    float: right;
+    margin-right: 10px;
+    width: auto;
+}
+
+.form-control {
+    font-size: 12px;
+}
+
+@media (min-width: 768px) {
+    .map-column {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 0;
+    }
+
+    #map {
+        height: 100%;
+    }
+
+    .info-column {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        overflow: auto;
+    }
+}
